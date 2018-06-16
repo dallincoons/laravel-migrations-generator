@@ -16,6 +16,7 @@ class CreateSomeTable extends Migration
     {
         Schema::create('some_table', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('text_field');
         });
     }
 

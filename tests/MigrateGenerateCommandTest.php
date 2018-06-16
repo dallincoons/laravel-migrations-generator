@@ -11,7 +11,7 @@ class MigrateGenerateCommandTest extends TestCase
     {
         (new Filesystem())->remove(__DIR__ . '/../../database/migrations');
         (new Filesystem())->mkdir(__DIR__ . '/../../database/migrations');
-        $this->artisan('migrate', ['--path' => 'package/tests/fixtures/migrations']);
+        $this->artisan('migrate:refresh', ['--path' => 'package/tests/fixtures/migrations']);
         $this->artisan('migrate:generate', ['--no-interaction' => true]);
 
         $file = glob(__DIR__ . '/../../database/migrations/*create_some_table_table.php');
