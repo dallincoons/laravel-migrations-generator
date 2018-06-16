@@ -44,3 +44,31 @@ You can also specify the connection name if you are not using your default conne
 Run `php artisan help migrate:generate` for a list of options.
 
 The Laravel Migrations Generator is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+## Testing
+
+To run tests, create a new laravel project locally, ie `laravel new test-migrations-generator`
+
+in the root directory, run `git submodule add https://github.com/dallincoons/laravel-migrations-generator.git package` which will install the package into a direvtory called `package`
+
+in the root directories composer.json file, add
+
+```json
+"repositories": [
+        {
+            "type": "path",
+            "url": "./package"
+        }
+    ]
+```
+
+and then run `composer require spacegrass/laravel-migrations-generator @dev`
+
+now in config/app.php, add the providers:
+
+```php
+Way\Generators\GeneratorsServiceProvider::class,
+Spacegrass\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+```
+
+navigate into the `package` directory, composer install, and now you should be able to run the tests: `vendor/bin/phpunit`
