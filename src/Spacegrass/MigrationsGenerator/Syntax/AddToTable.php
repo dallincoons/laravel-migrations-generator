@@ -1,4 +1,6 @@
-<?php namespace Spacegrass\MigrationsGenerator\Syntax;
+<?php
+
+namespace Spacegrass\MigrationsGenerator\Syntax;
 
 /**
  * Class AddToTable

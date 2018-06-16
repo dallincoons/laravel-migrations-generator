@@ -1,24 +1,26 @@
-<?php namespace Spacegrass\MigrationsGenerator\Generators;
+<?php
 
-class ForeignKeyGenerator {
+namespace Spacegrass\MigrationsGenerator\Generators;
 
-	/**
-	 * @var string
-	 */
-	protected $table;
+class ForeignKeyGenerator
+{
+    /**
+    * @var string
+    */
+    protected $table;
 
-	/**
-	 * Get array of foreign keys
-	 *
-	 * @param string                                      $table Table Name
-	 * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $schema
-	 * @param                                             $ignoreForeignKeyNames
-	 *
-	 * @return array
-	 */
-	public function generate($table, $schema, $ignoreForeignKeyNames)
-	{
-		$this->table = $table;
+    /**
+    * Get array of foreign keys
+    *
+    * @param string $table Table Name
+    * @param \Doctrine\DBAL\Schema\AbstractSchemaManager $schema
+    * @param $ignoreForeignKeyNames
+    *
+    * @return array
+    */
+    public function generate($table, $schema, $ignoreForeignKeyNames)
+    {
+        $this->table = $table;
 		$fields = [];
 
 		$foreignKeys = $schema->listTableForeignKeys($table);
@@ -38,34 +40,34 @@ class ForeignKeyGenerator {
 		return $fields;
 	}
 
-	/**
-	 * @param      $foreignKey
-	 * @param bool $ignoreForeignKeyNames
-	 *
-	 * @return null
-	 */
-	private function getName($foreignKey, $ignoreForeignKeyNames) {
-		if ($ignoreForeignKeyNames or $this->isDefaultName($foreignKey)) {
-			return null;
-		}
-		return $foreignKey->getName();
-	}
+    /**
+    * @param      $foreignKey
+    * @param bool $ignoreForeignKeyNames
+    *
+    * @return null
+    */
+    private function getName($foreignKey, $ignoreForeignKeyNames) {
+        if ($ignoreForeignKeyNames or $this->isDefaultName($foreignKey)) {
+            return null;
+        }
+        return $foreignKey->getName();
+    }
 
-	/**
-	 * @param $foreignKey
-	 *
-	 * @return bool
-	 */
+    /**
+    * @param $foreignKey
+    *
+    * @return bool
+    */
 	private function isDefaultName($foreignKey) {
 		return $foreignKey->getName() === $this->createIndexName($foreignKey->getLocalColumns()[0]);
 	}
 
-	/**
-	 * Create a default index name for the table.
-	 *
-	 * @param  string  $column
-	 * @return string
-	 */
+    /**
+    * Create a default index name for the table.
+    *
+    * @param  string  $column
+    * @return string
+    */
 	protected function createIndexName($column)
 	{
 		$index = strtolower($this->table.'_'.$column.'_foreign');
